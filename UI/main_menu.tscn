@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7tm00yng0af3"]
+
+[ext_resource type="Script" path="res://UI/main_menu.gd" id="1_m4koc"]
+[ext_resource type="Theme" uid="uid://d3cx0vndvb0du" path="res://UI/theme.tres" id="1_nxs8n"]
+[ext_resource type="Texture2D" uid="uid://ch4qsnsvbxqty" path="res://Assets/winter-wonderland-pixel-art-illustration-christmas-tree-house-snow_804788-5514.jpeg" id="2_jvyej"]
+[ext_resource type="AudioStream" uid="uid://d151efpxjvuid" path="res://Assets/enchanted-chimes-177906.mp3" id="4_r2dxf"]
+
+[node name="Main_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_nxs8n")
+script = ExtResource("1_m4koc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(574, 322)
+scale = Vector2(1.86661, 1.81145)
+texture = ExtResource("2_jvyej")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 130.0
+offset_right = 100.0
+offset_bottom = 170.0
+grow_horizontal = 2
+theme = ExtResource("1_nxs8n")
+theme_override_colors/font_color = Color(0.992157, 0.447059, 0.513726, 1)
+theme_override_colors/font_shadow_color = Color(0.952941, 0.972549, 0.419608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Winter Wonderland"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 36.0
+offset_right = 100.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_r2dxf")
+autoplay = true
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

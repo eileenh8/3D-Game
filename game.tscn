@@ -1,8 +1,20 @@
-[gd_scene load_steps=56 format=3 uid="uid://iaya5jt3xeli"]
+[gd_scene load_steps=70 format=3 uid="uid://iaya5jt3xeli"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_b3bf2"]
 [ext_resource type="ArrayMesh" uid="uid://dhoshggxqdios" path="res://Assets/machinegun.obj" id="2_mtppw"]
 [ext_resource type="Script" path="res://Menu.gd" id="3_m2iob"]
+[ext_resource type="PackedScene" uid="uid://nimfmobppytb" path="res://Assets/Building/cabinDoor.dae" id="4_c3bke"]
+[ext_resource type="PackedScene" uid="uid://cx35vikq8ff7o" path="res://Assets/Building/cabinWall.dae" id="6_65csb"]
+[ext_resource type="PackedScene" uid="uid://do8gh0ikaarai" path="res://Assets/Building/cabinWindow.dae" id="8_p8q6i"]
+[ext_resource type="PackedScene" uid="uid://bw544j7onw4ru" path="res://Assets/Building/cabinRoofChimney.dae" id="10_v1m8y"]
+[ext_resource type="PackedScene" uid="uid://f5b2nd3mbsqj" path="res://Assets/Building/cabinCorner.dae" id="10_v7av6"]
+[ext_resource type="PackedScene" uid="uid://8hsv072kxx4x" path="res://Assets/Building/cabinRoof.dae" id="11_r7thu"]
+[ext_resource type="PackedScene" uid="uid://b5o8ct6fl8skh" path="res://Assets/Building/wreath.dae" id="11_ykeaq"]
+[ext_resource type="PackedScene" uid="uid://bqxx85uggyy3u" path="res://Assets/Building/treePineSnowRound.dae" id="12_pkrxy"]
+[ext_resource type="PackedScene" uid="uid://bgipdr4u5dvsh" path="res://Assets/Building/cabinSide.dae" id="12_sx7wa"]
+[ext_resource type="PackedScene" uid="uid://2blgge2olq83" path="res://Assets/Building/snowPatch.dae" id="13_x8w05"]
+[ext_resource type="PackedScene" uid="uid://bae23mu55pn46" path="res://Assets/Building/rockFormationMedium.dae" id="14_h52wr"]
+[ext_resource type="PackedScene" uid="uid://d4mv4j4kwxnmf" path="res://Assets/Building/rockFormationLarge.dae" id="15_shg0l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bg5y4"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -159,10 +171,15 @@ albedo_color = Color(0.156863, 0.517647, 0.145098, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2v1qy"]
 material = SubResource("StandardMaterial3D_ghkdi")
-size = Vector2(20, 20)
+size = Vector2(80, 80)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iwo76"]
-size = Vector3(20, 1, 20)
+size = Vector3(80, 1, 80)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_70qdv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mndcv"]
+size = Vector3(1, 1.68782, 2.37791)
 
 [node name="Game" type="Node3D"]
 
@@ -174,6 +191,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.695335, 0)
 script = ExtResource("1_b3bf2")
 
 [node name="Body" type="CollisionShape3D" parent="Player"]
@@ -247,7 +265,7 @@ mesh = SubResource("PlaneMesh_2v1qy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_iwo76")
 
-[node name="Menu" type="Control" parent="."]
+[node name="Pause_Menu" type="Control" parent="."]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -258,7 +276,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_m2iob")
 
-[node name="ColorRect" type="ColorRect" parent="Menu"]
+[node name="ColorRect" type="ColorRect" parent="Pause_Menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -267,7 +285,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
-[node name="Restart" type="Button" parent="Menu"]
+[node name="Restart" type="Button" parent="Pause_Menu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -282,7 +300,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Restart"
 
-[node name="Quit" type="Button" parent="Menu"]
+[node name="Quit" type="Button" parent="Pause_Menu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -297,5 +315,86 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Quit"
 
-[connection signal="pressed" from="Menu/Restart" to="Menu" method="_on_restart_pressed"]
-[connection signal="pressed" from="Menu/Quit" to="Menu" method="_on_quit_pressed"]
+[node name="Cabin1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.4391, 0, 21.622)
+metadata/_edit_group_ = true
+
+[node name="cabinDoor" parent="Cabin1" instance=ExtResource("4_c3bke")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -5.23804, -0.0156549, 4.19815)
+
+[node name="cabinWall" parent="Cabin1" instance=ExtResource("6_65csb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.70446, -0.0160552, 4.74758)
+
+[node name="cabinWindow" parent="Cabin1" instance=ExtResource("8_p8q6i")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -2.25043, -0.0162374, 4.19824)
+
+[node name="cabinCorner" parent="Cabin1" instance=ExtResource("10_v7av6")]
+transform = Transform3D(-4, 0, -6.03983e-07, 0, 4, 0, 6.03983e-07, 0, -4, -0.26112, -0.0171793, 4.1536)
+
+[node name="cabinCorner2" parent="Cabin1" instance=ExtResource("10_v7av6")]
+transform = Transform3D(-1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, -7.23374, -0.019923, 4.07439)
+
+[node name="cabinWall2" parent="Cabin1" instance=ExtResource("6_65csb")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -7.38238, -0.00927335, 6.21412)
+
+[node name="cabinWall3" parent="Cabin1" instance=ExtResource("6_65csb")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -2.48061, 0.00367665, 8.38288)
+
+[node name="cabinWindow2" parent="Cabin1" instance=ExtResource("8_p8q6i")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -5.25594, 0.00425124, 8.39178)
+
+[node name="cabinCorner3" parent="Cabin1" instance=ExtResource("10_v7av6")]
+transform = Transform3D(3.99984, -0.0356741, 0, 0.0356741, 3.99984, 0, 0, 0, 4, -7.32449, -0.0233896, 8.23417)
+
+[node name="cabinWall4" parent="Cabin1" instance=ExtResource("6_65csb")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -0.362066, -0.00793839, 6.30549)
+
+[node name="cabinCorner4" parent="Cabin1" instance=ExtResource("10_v7av6")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -0.250024, 0.0273478, 8.30768)
+
+[node name="cabinRoofChimney" parent="Cabin1" instance=ExtResource("10_v1m8y")]
+transform = Transform3D(-1.74842e-07, 0.0259703, 3.99992, 1.1352e-09, 3.99992, -0.0259703, -4, -8.94808e-16, -1.74846e-07, -1.87899, 3.59688, 6.0822)
+
+[node name="cabinRoof" parent="Cabin1" instance=ExtResource("11_r7thu")]
+transform = Transform3D(-1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, -5.8446, 3.60624, 6.08351)
+
+[node name="cabinSide" parent="Cabin1" instance=ExtResource("12_sx7wa")]
+transform = Transform3D(-1.31134e-07, -3, 0, 3, -1.31134e-07, 0, 0, 0, 3, -3.99031, 4.61899, 4.24945)
+
+[node name="cabinSide2" parent="Cabin1" instance=ExtResource("12_sx7wa")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -2.07531, 3.31831, 4.28689)
+
+[node name="cabinSide3" parent="Cabin1" instance=ExtResource("12_sx7wa")]
+transform = Transform3D(1.22278, -3.80852, 0, 3.80852, 1.22278, 0, 0, 0, 4, -4.36821, 4.46411, 4.29728)
+
+[node name="wreath" parent="Cabin1" instance=ExtResource("11_ykeaq")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3.8568, 3.92391, 4.13397)
+
+[node name="Body" type="StaticBody3D" parent="Cabin1"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -3.74347, 2.51151, 6.36889)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cabin1/Body"]
+shape = SubResource("BoxShape3D_70qdv")
+
+[node name="treePineSnowRound" parent="." instance=ExtResource("12_pkrxy")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -35.1183, 0.5, 25.06)
+metadata/_edit_group_ = true
+
+[node name="snowPatch" parent="treePineSnowRound" instance=ExtResource("13_x8w05")]
+transform = Transform3D(0.128796, 0, -0.991671, 0, 1, 0, 0.991671, 0, 0.128796, 0.153983, -0.114518, 1.11418)
+
+[node name="rockFormationMedium" parent="treePineSnowRound" instance=ExtResource("14_h52wr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72298, -0.118367, 0.452403)
+
+[node name="rockFormationLarge" parent="treePineSnowRound" instance=ExtResource("15_shg0l")]
+transform = Transform3D(-1.49232, 0, -0.151584, 0, 1.5, 0, 0.151584, 0, -1.49232, -0.336663, -0.0718782, 1.55941)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="treePineSnowRound/rockFormationLarge"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="treePineSnowRound/rockFormationLarge/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.112376, 0.199201, -0.0114141)
+shape = SubResource("BoxShape3D_mndcv")
+
+[connection signal="pressed" from="Pause_Menu/Restart" to="Pause_Menu" method="_on_restart_pressed"]
+[connection signal="pressed" from="Pause_Menu/Quit" to="Pause_Menu" method="_on_quit_pressed"]
