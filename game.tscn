@@ -265,6 +265,7 @@ surface_material_override/42 = SubResource("StandardMaterial3D_dq8bu")
 surface_material_override/43 = SubResource("StandardMaterial3D_s8gh3")
 
 [node name="Flash" type="Node3D" parent="Player/Pivot/Weapon"]
+visible = false
 
 [node name="Muzzleflash" type="MeshInstance3D" parent="Player/Pivot/Weapon/Flash"]
 transform = Transform3D(0.48, 0, 1.14441e-07, 0, 0.48, 0, -1.14441e-07, 0, 0.48, 0.4, 1.15618, -0.874208)
