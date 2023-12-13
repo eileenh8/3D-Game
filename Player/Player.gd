@@ -28,6 +28,12 @@ func _physics_process(delta):
 	# Handle Jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	if Input.is_action_just_pressed("Shoot"):
+		var weapons = $Pivot/Weapon
+		for w in weapons.get_children():
+			if w.has_method("Shoot"):
+				w.shoot()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.

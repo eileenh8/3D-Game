@@ -1,9 +1,12 @@
-[gd_scene load_steps=70 format=3 uid="uid://iaya5jt3xeli"]
+[gd_scene load_steps=73 format=3 uid="uid://iaya5jt3xeli"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_b3bf2"]
+[ext_resource type="Script" path="res://Player/gun.gd" id="2_cfgg7"]
 [ext_resource type="ArrayMesh" uid="uid://dhoshggxqdios" path="res://Assets/machinegun.obj" id="2_mtppw"]
+[ext_resource type="ArrayMesh" uid="uid://c74w85ap1a4nl" path="res://Assets/muzzleflash.obj" id="3_74pg1"]
 [ext_resource type="Script" path="res://Menu.gd" id="3_m2iob"]
 [ext_resource type="PackedScene" uid="uid://nimfmobppytb" path="res://Assets/Building/cabinDoor.dae" id="4_c3bke"]
+[ext_resource type="Material" uid="uid://p1dwkg4tr6av" path="res://Assets/muzzle.tres" id="4_y2x1x"]
 [ext_resource type="PackedScene" uid="uid://cx35vikq8ff7o" path="res://Assets/Building/cabinWall.dae" id="6_65csb"]
 [ext_resource type="PackedScene" uid="uid://do8gh0ikaarai" path="res://Assets/Building/cabinWindow.dae" id="8_p8q6i"]
 [ext_resource type="PackedScene" uid="uid://bw544j7onw4ru" path="res://Assets/Building/cabinRoofChimney.dae" id="10_v1m8y"]
@@ -208,9 +211,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 [node name="Camera3D" type="Camera3D" parent="Player/Pivot"]
 current = true
 
-[node name="Gun" type="MeshInstance3D" parent="Player/Pivot"]
-transform = Transform3D(-8, 0, -6.99382e-07, 0, 8, 0, 6.99382e-07, 0, -8, 0.4, -0.2, -0.4)
+[node name="Weapon" type="Node3D" parent="Player/Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.30467, 0)
+script = ExtResource("2_cfgg7")
+
+[node name="Gun model" type="MeshInstance3D" parent="Player/Pivot/Weapon"]
+transform = Transform3D(-8, 0, -6.99382e-07, 0, 8, 0, 6.99382e-07, 0, -8, 0.4, 1.10467, -0.4)
 mesh = ExtResource("2_mtppw")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_c6xqj")
 surface_material_override/1 = SubResource("StandardMaterial3D_vnqxd")
 surface_material_override/2 = SubResource("StandardMaterial3D_rocqo")
@@ -255,6 +263,26 @@ surface_material_override/40 = SubResource("StandardMaterial3D_lrj26")
 surface_material_override/41 = SubResource("StandardMaterial3D_t22ha")
 surface_material_override/42 = SubResource("StandardMaterial3D_dq8bu")
 surface_material_override/43 = SubResource("StandardMaterial3D_s8gh3")
+
+[node name="Flash" type="Node3D" parent="Player/Pivot/Weapon"]
+
+[node name="Muzzleflash" type="MeshInstance3D" parent="Player/Pivot/Weapon/Flash"]
+transform = Transform3D(0.48, 0, 1.14441e-07, 0, 0.48, 0, -1.14441e-07, 0, 0.48, 0.4, 1.15618, -0.874208)
+mesh = ExtResource("3_74pg1")
+skeleton = NodePath("../../../../..")
+surface_material_override/0 = ExtResource("4_y2x1x")
+surface_material_override/1 = ExtResource("4_y2x1x")
+surface_material_override/2 = ExtResource("4_y2x1x")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Player/Pivot/Weapon/Flash"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.4, 1.14658, -0.77955)
+light_color = Color(1, 1, 0.603922, 1)
+light_energy = 5.444
+omni_range = 1.984
+
+[node name="Timer" type="Timer" parent="Player/Pivot/Weapon"]
+wait_time = 0.2
+one_shot = true
 
 [node name="Ground" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
@@ -396,5 +424,6 @@ transform = Transform3D(-1.49232, 0, -0.151584, 0, 1.5, 0, 0.151584, 0, -1.49232
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.112376, 0.199201, -0.0114141)
 shape = SubResource("BoxShape3D_mndcv")
 
+[connection signal="timeout" from="Player/Pivot/Weapon/Timer" to="Player/Pivot/Weapon" method="_on_timer_timeout"]
 [connection signal="pressed" from="Pause_Menu/Restart" to="Pause_Menu" method="_on_restart_pressed"]
 [connection signal="pressed" from="Pause_Menu/Quit" to="Pause_Menu" method="_on_quit_pressed"]
